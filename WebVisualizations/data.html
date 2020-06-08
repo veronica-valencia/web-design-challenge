@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Components</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Lattitude</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-align:left">
+            Plots
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Max Temperature</a>
+            <a class="dropdown-item" href="#">Humidity</a>
+            <a class="dropdown-item" href="#">Cloudiness</a>
+            <a class="dropdown-item" href="#">Wind Speed</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Comparison</a>
+        </li>  
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Data</a>
+        </li>  
+      </ul>
+    </div>
+ </nav>
+<main role="main">
+
+</div>
+    <div class="container">
+        <div class="jumbotron">
+          <h1 class="display-4">Data</h1>
+          <h1><style type='text/css'>
+            body{
+             color:black;
+             background-color: rgb(189, 191, 192)}
+            </style><h1>
+          <hr class="my-4">
+          <p class="lead">The following table includes all of the data for plotting during this project.</p>
+            <div class="row">
+            </div>
+        </div>
+        <div align="center">
+          <button type="button" name="load_data" id="load_data" class="btn btn-info">Load Data</button>
+        </div>
+        <div class="container">
+         <div class="table-responsive">
+          <div id="data_table">
+          </div>
+         </div>
+        </div>
+      <script>
+        $('#load_data').click(function(){
+        $.ajax({
+         url:"Resources/cities.csv",
+         crossOrigin:true,
+         dataType:"text",
+         success:function(data)
+         {
+          var cities_data = data.split(/\r?\n|\r/);
+          var table_data = '<table class="table table-bordered table-striped">';
+          for(var count = 0; count<cities_data.length; count++)
+          {
+           var cell_data = cities_data[count].split(",");
+           table_data += '<tr>';
+           for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+           {
+            if(count === 0)
+            {
+             table_data += '<th>'+cell_data[cell_count]+'</th>';
+            }
+            else
+            {
+             table_data += '<td>'+cell_data[cell_count]+'</td>';
+            }
+           }
+           table_data += '</tr>';
+          }
+          table_data += '</table>';
+          $('#cities_table').html(table_data);
+         }
+        });  
+      });   
+      </script>
+
+</body>
+
+</html>
